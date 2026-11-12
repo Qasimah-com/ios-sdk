@@ -1,0 +1,33 @@
+name: QasimhaExample
+options:
+  bundleIdPrefix: com.example
+  deploymentTarget:
+    iOS: "14.0"
+  createIntermediateGroups: true
+packages:
+  QasimhaCheckout:
+    path: ..
+targets:
+  QasimhaExample:
+    type: application
+    platform: iOS
+    sources:
+      - path: QasimhaExample
+    dependencies:
+      - package: QasimhaCheckout
+    info:
+      path: QasimhaExample/Info.plist
+      properties:
+        CFBundleDisplayName: Qasimha Example
+        UILaunchScreen: {}
+        CFBundleURLTypes:
+          - CFBundleURLName: checkout-return
+            CFBundleURLSchemes: [qasimhaexample]
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true
+    settings:
+      base:
+        SWIFT_VERSION: "5.9"
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CODE_SIGN_STYLE: Automatic
+        PRODUCT_BUNDLE_IDENTIFIER: com.example.QasimhaExample

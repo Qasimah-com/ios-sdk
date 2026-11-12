@@ -1,0 +1,19 @@
+name: ios-sdk
+on:
+  push: { paths: ['mobile/ios/**', '.github/workflows/ci-ios.yml'] }
+  pull_request: { paths: ['mobile/ios/**'] }
+jobs:
+  build-and-test:
+    runs-on: macos-14
+    defaults: { run: { working-directory: mobile/ios } }
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select Xcode 16
+        run: sudo xcode-select -s /Applications/Xcode_16.2.app
+      - run: swift --version
+      - name: Build the library for iOS
+        run: xcodebuild -scheme QasimhaCheckout -destination 'generic/platform=iOS' build CODE_SIGNING_ALLOWED=NO
+      - name: Test the core on the macOS host
+        run: swift test
+      - name: Lint the podspec
+        run: pod lib lint QasimhaCheckout.podspec --allow-warnings
